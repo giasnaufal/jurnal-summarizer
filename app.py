@@ -49,7 +49,7 @@ with kolom_kanan:
                         teks_jurnal += halaman.extract_text()
                     
                     genai.configure(api_key=api_key)
-                    model = genai.GenerativeModel('gemini-pro')
+                    model = genai.GenerativeModel('gemini-1.5-flash')
                     
                     prompt = f"""
                     Anda adalah asisten akademik senior. Tolong buat rangkuman yang sangat rapi,
