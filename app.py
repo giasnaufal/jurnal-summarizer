@@ -2,6 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 from PyPDF2 import PdfReader
 
+# Pengaturan tampilan web
 st.set_page_config(page_title="AI Journal Summarizer", page_icon="📑", layout="wide")
 
 st.markdown("""
@@ -48,20 +49,11 @@ with kolom_kanan:
                     for halaman in reader.pages[:15]:
                         teks_jurnal += halaman.extract_text()
                     
+                    # Konfigurasi menggunakan pustaka google-generativeai dengan model terbaru
                     genai.configure(api_key=api_key)
                     model = genai.GenerativeModel('gemini-2.5-flash')
                     
-                    prompt = f"""
-                    Anda adalah asisten akademik senior. Tolong buat rangkuman yang sangat rapi,
-                    mudah dipahami, dan profesional dalam Bahasa Indonesia dari teks jurnal ini.
-                    Format struktur outputnya menjadi:
-                    - **Judul & Latar Belakang**
-                    - **Metode Penelitian**
-                    - **Temuan Utama / Hasil**
-                    - **Kesimpulan**
-                    
-                    Teks Jurnal: {teks_jurnal}
-                    """
+                    prompt = f"Tolong buat rangkuman terstruktur (Latar Belakang, Metode, Hasil, Kesimpulan) dalam Bahasa Indonesia dari teks jurnal berikut:\n\n{teks_jurnal}"
                     
                     response = model.generate_content(prompt)
                     st.markdown(f"<div class='card'>{response.text}</div>", unsafe_allow_html=True)
